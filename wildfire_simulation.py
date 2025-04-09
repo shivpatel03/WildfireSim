@@ -197,17 +197,23 @@ def visualize_results(results):
         axs[i].plot(line_x, line_y, color='red', linestyle='--', 
                    label=f'Regression Line\nR² = {r_value**2:.3f}')
         
-        # Add labels and legend
+        # Add labels
         axs[i].set_xlabel(name)
         axs[i].set_ylabel('Burn Ratio')
         axs[i].set_title(f'Effect of {name} on Wildfire Spread')
-        axs[i].legend()
+        
+        # Add legend with fixed position in top left
+        legend = axs[i].legend(loc='upper left', bbox_to_anchor=(0.01, 0.99),
+                          framealpha=0.8, facecolor='white')
+        
+        # Add grid
         axs[i].grid(True, linestyle='--', alpha=0.7)
         
-        # Annotate with slope and R-squared
+        # Annotate with slope and R-squared - fixed position in top right
         text = f"Slope: {slope:.3f}\nR²: {r_value**2:.3f}\np-value: {p_value:.4f}"
-        axs[i].text(0.05, 0.95, text, transform=axs[i].transAxes, 
-                   verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+        axs[i].text(0.99, 0.99, text, transform=axs[i].transAxes, 
+                   verticalalignment='top', horizontalalignment='right',
+                   bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
     # Create a summary bar plot in the last subplot showing relative importance
     importance = []
